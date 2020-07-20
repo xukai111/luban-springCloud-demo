@@ -7,6 +7,12 @@
         <module>eureka3000</module>
         <module>eureka3001</module>
         <module>eureka3002</module>
+        <module>user3003</module>
+        <module>user3004</module>
+        <module>power3005</module>
+        <module>power3006</module>
+        <module>order3007</module>
+        <module>order3008</module>
     </modules>
 
     <parent>
@@ -29,6 +35,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
