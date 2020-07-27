@@ -1,5 +1,7 @@
 package com.xk.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.xk.service.PowerClientService;
 import com.xk.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,9 @@ public class UserController {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private PowerClientService powerClientService;
+
     private static  final String power = "http://SERVER-POWER";
 
     @RequestMapping("/getUser.do")
@@ -22,6 +27,22 @@ public class UserController {
     @RequestMapping("/getPowerByUser.do")
     public Object getPowerByUser(){
         return restTemplate.getForObject(power + "/getPower.do",Object.class);
+    }
+
+    @RequestMapping("/getPowerByFeign.do")
+    public String getPowerByFeign(){
+        return powerClientService.power();
+    }
+
+    @RequestMapping("/forPowerByFeign")
+    @HystrixCommand(fallbackMethod = "fallbackMethod")
+    public String forPowerByFeign(String name){
+        return powerClientService.getPowerByFeign(name);
+    }
+
+    private String fallbackMethod(String name){
+        System.out.println(name);
+        return ResultUtil.success("进入降级方法");
     }
 
 }
