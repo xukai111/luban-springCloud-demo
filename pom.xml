@@ -13,6 +13,7 @@
         <module>power3006</module>
         <module>order3007</module>
         <module>order3008</module>
+        <module>zuul</module>
     </modules>
 
     <parent>
